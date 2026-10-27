@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cascadia-platform
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -m uvicorn --app-dir backend main:app --host 0.0.0.0 --port $PORT"
+    plan: free
