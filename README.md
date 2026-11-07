@@ -86,47 +86,8 @@ cinema-camera-site/
 
 ---
 
-## 4. 3-Minute Judging Demonstration Script
 
-### Scene 1: Healthy System (00:00 – 00:25)
-- Open `http://127.0.0.1:8000`.
-- Point out the 6 microservices: **API Gateway** (Ingress), **Order Service** & **Payment Service** (Application), **Primary Database** (Storage), **Message Broker** (Queue), and **Notification Worker** (Async).
-- Note that all baseline metrics are green: Database latency ~12ms, Gateway errors 0.02%, system status **SYSTEM HEALTHY**.
-
-### Scene 2: The First Fault & Cascade Prediction (00:25 – 01:00)
-- In the top bar, switch scenario to **🔴 DB Slowdown (Primary)**.
-- Click **+5s (Step)** twice.
-- Observe:
-  - Database latency spikes from 12ms to 1,150ms.
-  - The node turns red and is labeled **Observed Fault / Probable Root Cause (99% Suspicion)**.
-  - The animated SVG pulses begin flowing upward along the dependency edges.
-  - The **Cascading Failure Prediction** panel alerts: `Order Service` and `Payment Service` are **Predicted At-Risk (95% risk, ~15s window)** before they have even failed!
-
-### Scene 3: Cascade Intervention Lab (01:00 – 01:45)
-- Click the **Cascade Intervention Lab** tab.
-- Show the 4 alternative recovery strategies:
-  1. **Enable Cache Fallback & Read Throttling** (RECOMMENDED · MTTR ~8s · Low Cost)
-  2. **Auto-Scale DB Replicas** (Alternative · MTTR ~45s · High Cost $$$)
-  3. **Shed Ingress Traffic** (Containment Only · Drops 40% user requests)
-  4. **Hard Restart Database** (High Risk · Causes 75s total outage)
-- Highlight why CASCADIA does **not** blindly restart the database: restarting Postgres drops all active transactions and creates 100% downtime.
-
-### Scene 4: Recover & Verify (01:45 – 02:30)
-- On Option 1 (*Enable Cache Fallback*), click **Execute Intervention**.
-- Click **+5s (Step)**.
-- Observe immediate recovery:
-  - Database latency drops from 2,850ms to 24ms (-98.4%).
-  - API Gateway error rate plummets to 0.04% (-99.8%).
-  - Status transitions to **RECOVERED & VERIFIED**.
-  - Review the **Counterfactual Verification Matrix**: 3 of 3 downstream services spared, ~18,250 requests saved from failing.
-
-### Scene 5: Prove the Outcome & Export Report (02:30 – 03:00)
-- Click the **Incident Report** tab to view the executive post-mortem and click **Download Report**.
-- Click the **Evaluation** tab and click **Re-Run Benchmark**: showcase the actual measured results on the 12 labelled test incidents (**100% Anomaly F1, 100% Top-3 Root Cause Accuracy, 0.13ms analysis latency**).
-
----
-
-## 5. Measured Empirical Benchmark Results (Section 7)
+## 4. Measured Empirical Benchmark Results (Section 7)
 
 Evaluated on 12 synthetic labelled incidents covering healthy baselines, isolated failures, and cascading outages:
 
@@ -144,7 +105,7 @@ Evaluated on 12 synthetic labelled incidents covering healthy baselines, isolate
 
 ---
 
-## 6. How to Run
+## 5. How to Run
 
 ### Quick Launch
 ```bash
